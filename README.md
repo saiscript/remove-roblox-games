@@ -1,2 +1,4 @@
 # remove-roblox-games
-this is a tampermonkey script that removes most annoying and rlly weird 'sus' games off of the roblox website
+a tampermonkey script that removes most 'sus' games off of roblox using keywords and links
+
+feel free to edit
