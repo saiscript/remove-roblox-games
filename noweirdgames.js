@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         no weird roblox games
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  removes most 'sus' games off of the roblox website
 // @author       me
 // @match        *://www.roblox.com/*
@@ -10,8 +10,8 @@
 // @run-at       document-end
 // ==/UserScript==
 
-const linkFilter = ['https://www.roblox.com/games/10812131401', 'https://www.roblox.com/games/14968620152']; // remove game containers if they lead you to these links
-const titleFilter = ['18', '18+', 'r34', 'r63', 'sus', '34', '63', 'sussy', 'dirty']; // remove game containers that include one of these keywords in the title
+const linkFilter = ['10812131401', '14968620152', '9816549907']; // remove game containers if they lead you to these links or include these game ids
+const titleFilter = ['18', '18+', 'r34', 'r63', 'sus', '34', '63', 'sussy', 'dirty', 'neko girl', 'nekogirl', 'neko-girl']; // remove game containers that include one of these keywords in the title
 
 function removeElements(elements) {
     elements.forEach(element => {
@@ -20,8 +20,8 @@ function removeElements(elements) {
 
         if (linkElement) {
             const href = linkElement.getAttribute('href');
-            if (href && linkFilter.includes(href)) {
-                element.remove();
+            if (href && linkFilter.find(id => href.includes(id))) {
+                linkElement.closest('.grid-item-container').remove();
             }
         }
 
@@ -51,7 +51,7 @@ function observeNewElements() {
     observer.observe(targetNode, config);
 }
 
-function bye() {
+(function() {
     removeElements(document.querySelectorAll('.grid-item-container.game-card-container'));
     observeNewElements();
 
@@ -63,8 +63,4 @@ function bye() {
     setTimeout(() => {
         clearInterval(intervalId);
     }, 3000);
-}
-
-(function() {
-    bye();
 })();
